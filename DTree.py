@@ -4,9 +4,11 @@ Upcoming:
 [ ] Perfomance Comparison
 
 [ ] check if Confounder is categorical or continuous
-    Combination of categorical and continuous Confounders
+    Combination of categorical and continuous Confounders should be possible
 
-[ ] what if Confounder and/or Target are not numerical?
+[ ] non-numerical Target and Confounder should be possible
+
+[ ] standard deviation is not applicable for continuous variables --> Sum of Squared Residuals (SSR) or mean squared error (MSE)
 
 [ ] Option to transform continuous variables into categorical variables
     --> binning
