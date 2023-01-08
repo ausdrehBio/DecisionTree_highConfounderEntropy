@@ -3,12 +3,12 @@
 Upcoming:
 [ ] Perfomance Comparison
 
-[ ] check if Confounder is categorical or continous
+[ ] check if Confounder is categorical or continuous
     Combination of categorical and continuous Confounders
 
 [ ] what if Confounder and/or Target are not numerical?
 
-[ ] Option to transform continous variables into categorical variables
+[ ] Option to transform continuous variables into categorical variables
     --> binning
 
 '''
