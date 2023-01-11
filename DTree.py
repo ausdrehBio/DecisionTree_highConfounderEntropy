@@ -3,6 +3,8 @@
 Upcoming:
 [ ] Perfomance Comparison
 
+[ ] Testing
+
 [ ] check if Confounder is categorical or continuous
     Combination of categorical and continuous Confounders should be possible
 
