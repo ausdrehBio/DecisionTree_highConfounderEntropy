@@ -8,7 +8,7 @@ Upcoming:
 
 [ ] non-numerical Target and Confounder should be possible
 
-[ ] standard deviation is not applicable for continuous variables --> Sum of Squared Residuals (SSR) or mean squared error (MSE)
+[x] standard deviation is not applicable for continuous variables --> Sum of Squared Residuals (SSR)
 
 [ ] Option to transform continuous variables into categorical variables
     --> binning
@@ -106,6 +106,14 @@ class Node:
 
 ############################## Methods
 ################# Entropy
+
+    def ssr(self,column):
+        # get the mean of the column
+        mean = column.mean()
+        # get the squared difference between each value and the mean
+        ssr = sum((column-mean)**2)
+        return ssr
+
     @staticmethod
     def compute_ConfounderEntropy(self,frame=None) -> float:
         if frame is None:
@@ -131,16 +139,30 @@ class Node:
 
     @staticmethod
     def compute_continuousConfounder(self,frame=None) -> float:
-        if frame is None:
-            frame = self.ConfounderFrame
+
         Randomness = 0
-        # iterate over columns
+
+        ''' standard deviation approach'''
+        # if frame is None:
+        #     frame = self.ConfounderFrame
+        # Randomness = 0
+        # # iterate over columns
+        # for col in frame.columns:
+        #     # subset each column
+        #     subset = frame[col]
+        #     # get std of subset
+        #     std = subset.std()
+        #     Randomness += std
+
+        ''' SSR approach'''
         for col in frame.columns:
             # subset each column
             subset = frame[col]
             # get std of subset
-            std = subset.std()
-            Randomness += std
+            ssr = self.ssr(subset)
+            Randomness += ssr
+        # a lower SSR indicates that the regression model can better explain the data while a higher SSR indicates that the model poorly explains the data.
+        # BUT in our case we want a high SSR ==> high randomness of the confounder
         return Randomness
                 
     def get_ConfounderEntropy(self, feature, value, Xdf):
@@ -183,8 +205,9 @@ class Node:
         Combination of low TargetEntropy (=high gain of Information) and high ConfounderEntropy (or std of Confounder)
         '''
         #usability = (1/weighted_TargetEntropy) + weighted_ConfounderEntropy
-        usability = Gain_of_Information + weighted_ConfounderEntropy
-
+        
+        usability = Gain_of_Information + weighted_ConfounderEntropy 
+       
         return usability
 
 
